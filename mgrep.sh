@@ -13,11 +13,20 @@ BIN=1
 
 usage()
 {
-    echo "${PROGNAME} PATTERN [-e|--exclude PARAMS ...] [-i|--include PARAMS ...] [-h|--help] [-v|--version] [--case]"
+    echo "${PROGNAME} PATTERN [-e|--exclude PARAMS ...] [-i|--include PARAMS ...] [-h|--help] [-v|--version] [--case] [--nobin]"
+    echo -e "\t--exclude to exclude some filename pattern"
+    echo -e "\t--include to accept only some filename patter"
+    echo -e "\t--help to display this help"
+    echo -e "\t--version to display the version"
+    echo -e "\t--case to be case sensitive"
+    echo -e "\t--nobin to refuse binary file"
+    echo
+    echo "Display the list of file which contains the PATTERN"
     echo ""
 }
 
 if [[ ${#args[*]} -lt 2 ]] ; then
+    echo "Provide a PATTERN"
     usage
     exit 1
 fi
