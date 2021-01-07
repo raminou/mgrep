@@ -7,26 +7,28 @@ EXCLUDE_FILE_ARRAY=()
 EXCLUDE_STRING=""
 INCLUDE_FILE_ARRAY=()
 INCLUDE_STRING=""
+
 usage()
 {
     echo "${PROGNAME} PATTERN [-e|--exclude PARAMS ...] [-i|--include PARAMS ...] [-h|--help] [-v|--version] [--case]"
     echo ""
 }
 
-if [[ ${#args[*]} -lt 1 ]] ; then
+if [[ ${#args[*]} -lt 2 ]] ; then
     usage
     exit 1
 fi
 
-PATTERN="${args[1]}"
+PATTERN=""
 EXCLUDE=0
 CASE=1
 
-for i in $(seq 2 ${#args[*]}) ; do
+LENGTH=$((${#args[*]}))
+for i in $(seq 1 $LENGTH) ; do
     case ${args[$i]} in
         -h|--help) usage
             exit 0;;
-        -v|--version) echo ""
+        -v|--version) echo "1"
             exit 0;;
         -e|--exclude)
             EXCLUDE=1
@@ -44,8 +46,12 @@ for i in $(seq 2 ${#args[*]}) ; do
                 INCLUDE_FILE_ARRAY+=(${args[$i]})
                 INCLUDE_STRING+="| grep \"${args[$i]}\""
             else
-                echo "Invalid command line"
-                exit 1
+                if [[ ${PATTERN} = "" ]] ; then
+                    PATTERN=${args[$i]}
+                else
+                    echo "PATTERN already given"
+                    exit 1
+                fi
             fi
             ;;
     esac
