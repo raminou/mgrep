@@ -99,7 +99,7 @@ for f in $($cmd) ; do
         fi
     done
     if [[ ${valid} -eq 1 ]] ; then
-        echo $f
+        echo -e "\033[1m$f\033[0m"
         if [[ ${CASE} -eq "1" ]] ; then
             grep -i -n --color=ALWAYS "${PATTERN}" "$f"
         else
