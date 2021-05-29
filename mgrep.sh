@@ -79,7 +79,7 @@ if [[ ${BIN} -eq "0" ]] ; then
     GREP_OPT+="I"
 fi
 
-for f in $(grep ${GREP_OPT} "${PATTERN}") ; do
+for f in $(grep ${GREP_OPT} "${PATTERN}" $PWD) ; do
     valid=1
     for exclude_f in ${EXCLUDE_FILE_ARRAY[@]} ; do
         res=$(echo $f | grep -v "${exclude_f}")
